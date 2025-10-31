@@ -1,0 +1,320 @@
+<div class="page-inner">
+  <div class="page-header">
+    <h3 class="fw-bold mb-3">DANH SÁCH</h3>
+    <ul class="breadcrumbs mb-3">
+      <li class="nav-home">
+        <a href="/"><i class="icon-home"></i></a>
+      </li>
+      <li class="separator"><i class="icon-arrow-right"></i></li>
+      <li class="nav-item"><a href="/reservation">Danh sách lịch đặt</a></li>
+    </ul>
+  </div>
+
+  <div class="row">
+    <div class="col-md-3">
+      <label for="startDate">Date</label>
+      <input id="startDate" class="form-control" type="date" />
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <div class="d-flex align-items-center">
+            <h4 class="card-title">Danh Sách Lịch đặt</h4>
+            <button class="btn btn-primary btn-round ms-auto" 
+              data-bs-toggle="modal" data-bs-target="#addReservationModal">
+              <i class="fa fa-plus"></i> Thêm lịch đặt
+            </button>
+          </div>
+        </div>
+
+        <div class="card-body">
+          <div class="table-responsive">
+            <table id="reservation-table" class="display table table-striped table-hover">
+              <thead>
+                <tr>
+                  <th>Thời gian</th>
+                  <th>ID</th>
+                  <th>Tên Khách Hàng</th>
+                  <th>Số điện thoại</th>
+                  <th>Số người</th>
+                  <th>Số bàn</th>
+                  <th>Mục đích</th>
+                  <th>Ghi chú</th>
+                  <th>Thao Tác</th>
+                </tr>
+              </thead>
+              <tfoot>
+                <tr>
+                  <th>Thời gian</th>
+                  <th>ID</th>
+                  <th>Tên Khách Hàng</th>
+                  <th>Số điện thoại</th>
+                  <th>Số người</th>
+                  <th>Số bàn</th>
+                  <th>Mục đích</th>
+                  <th>Ghi chú</th>
+                  <th>Thao Tác</th>
+                </tr>
+              </tfoot>
+              <tbody>
+                <!-- Nội dung bảng sẽ được thêm vào động thông qua JavaScript -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Thêm Lịch Đặt -->
+<div class="modal fade" id="addReservationModal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header border-0">
+        <h5 class="modal-title">
+          <span class="fw-mediumbold">Thêm</span>
+          <span class="fw-light">Lịch Đặt</span>
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <label for="tenKhachHang" class="form-label">Tên Khách Hàng</label>
+            <input type="text" class="form-control" id="tenKhachHang" required>
+          </div>
+          <div class="mb-3">
+            <label for="soDienThoai" class="form-label">Số Điện Thoại</label>
+            <input type="tel" class="form-control" id="soDienThoai" required>
+          </div>
+          <div class="mb-3">
+            <label for="soNguoi" class="form-label">Số Người</label>
+            <input type="number" class="form-control" id="soNguoi" required>
+          </div>
+          <div class="mb-3">
+            <label for="soBan" class="form-label">Số Bàn</label>
+            <input type="number" class="form-control" id="soBan">
+          </div>
+          <div class="mb-3">
+            <label for="mucDich" class="form-label">Mục Đích</label>
+            <input type="text" class="form-control" id="mucDich">
+          </div>
+          <div class="mb-3">
+            <label for="ghiChu" class="form-label">Ghi Chú</label>
+            <textarea class="form-control" id="ghiChu"></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="thoiGianBatDau" class="form-label">Thời gian bắt đầu</label>
+            <input type="datetime-local" class="form-control" id="thoiGianBatDau" required>
+          </div>
+          <div class="mb-3">
+            <label for="thoiGianKetThuc" class="form-label">Thời gian kết thúc</label>
+            <input type="datetime-local" class="form-control" id="thoiGianKetThuc" required>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer border-0">
+        <button type="button" class="btn btn-primary" id="addReservationButton">Thêm Lịch Đặt</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Xóa Lịch Đặt -->
+<div class="modal fade" id="deleteReservationModal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header border-0">
+        <h5 class="modal-title text-danger">
+          <span class="fw-mediumbold">Xóa</span>
+          <span class="fw-light">Lịch Đặt</span>
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Bạn có chắc chắn muốn xóa lịch đặt này không?</p>
+        <p class="text-muted">Hành động này không thể hoàn tác.</p>
+      </div>
+      <div class="modal-footer border-0">
+        <button type="button" class="btn btn-danger" id="confirmDeleteButton">Xóa</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- JS Dependencies -->
+<script src="js/core/jquery-3.7.1.min.js"></script>
+<script src="js/core/popper.min.js"></script>
+<script src="js/core/bootstrap.min.js"></script>
+<script src="js/plugin/datatables/datatables.min.js"></script>
+
+<script>
+  $(document).ready(function () {
+    // Lấy ngày hôm nay dưới dạng yyyy-mm-dd
+    const today = new Date().toISOString().split('T')[0];
+    $('#startDate').val(today); // Thiết lập giá trị mặc định cho input date
+
+    // Khởi tạo DataTable
+    const table = $('#reservation-table').DataTable({
+      pageLength: 5,
+      initComplete: function () {
+        this.api()
+          .columns()
+          .every(function () {
+            var column = this;
+            var select = $('<select class="form-select"><option value=""></option></select>')
+              .appendTo($(column.footer()).empty())
+              .on('change', function () {
+                var val = $.fn.dataTable.util.escapeRegex($(this).val());
+                column.search(val ? '^' + val + '$' : '', true, false).draw();
+              });
+            column.data().unique().sort().each(function (d) {
+              select.append(`<option value="${d}">${d}</option>`);
+            });
+          });
+      },
+    });
+
+    // Hàm lấy danh sách lịch đặt theo ngày
+    function fetchReservations(date) {
+      $.ajax({
+        url: `/reservation/data/${date}`,
+        method: 'GET',
+        success: function (data) {
+          // Xóa các dòng hiện có
+          table.clear();
+
+          if (data.reservations.length) {
+            // Thêm dữ liệu mới vào bảng
+            data.reservations.forEach(reservation => {
+              table.row.add([
+                `${reservation.thoi_gian_bat_dau.slice(11, 16)} - ${reservation.thoi_gian_ket_thuc.slice(11, 16)}`,
+                reservation.id,
+                reservation.ten_khach_hang,
+                reservation.so_dien_thoai,
+                reservation.so_nguoi,
+                reservation.so_ban || 'N/A',
+                reservation.muc_dich,
+                reservation.ghi_chu,
+                `<div class="form-button-action">
+                  <button class="btn btn-link btn-danger btn-delete" data-id="${reservation.id}" 
+                    data-bs-toggle="tooltip" title="Xóa Lịch đặt">
+                    <i class="fa fa-times"></i>
+                  </button>
+                </div>`
+              ]).draw(false);
+            });
+          } else {
+            // Thêm hàng rỗng với thông báo
+            table.row.add([
+              'Không có lịch đặt nào.', '', '', '', '', '', '', '', ''
+            ]).draw(false);
+          }
+        },
+        error: function () {
+          alert('Không thể tải dữ liệu. Vui lòng thử lại sau.');
+        }
+      });
+    }
+
+    // Gọi fetchReservations với ngày hôm nay khi tải trang
+    fetchReservations(today);
+
+    // Lắng nghe sự kiện khi chọn ngày
+    $('#startDate').on('change', function () {
+      const selectedDate = $(this).val();
+      if (selectedDate) {
+        fetchReservations(selectedDate);
+      }
+    });
+
+    // Xử lý thêm lịch đặt
+    $('#addReservationButton').click(function () {
+        const tenKhachHang = $('#tenKhachHang').val();
+        const soDienThoai = $('#soDienThoai').val();
+        const soNguoi = $('#soNguoi').val();
+        const soBan = $('#soBan').val();
+        const mucDich = $('#mucDich').val();
+        const ghiChu = $('#ghiChu').val();
+        const thoiGianBatDau = $('#thoiGianBatDau').val();
+        const thoiGianKetThuc = $('#thoiGianKetThuc').val();
+
+        // Kiểm tra xem người dùng đã điền đủ thông tin chưa
+        if (!tenKhachHang || !soDienThoai || !soNguoi || !thoiGianBatDau || !thoiGianKetThuc) {
+            alert('Vui lòng điền đủ thông tin');
+            return;
+        }
+
+        // Gửi yêu cầu POST đến backend để thêm lịch đặt
+        fetch('/reservation/add', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                tenKhachHang: tenKhachHang,
+                soDienThoai: soDienThoai,
+                soNguoi: soNguoi,
+                soBan: soBan,
+                mucDich: mucDich,
+                ghiChu: ghiChu,
+                thoiGianBatDau: thoiGianBatDau,
+                thoiGianKetThuc: thoiGianKetThuc
+            })
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Lỗi khi thêm lịch đặt');
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.message) {
+                alert(data.message);
+                location.reload();
+            } else {
+                alert('Lỗi khi thêm lịch đặt');
+            }
+        })
+        .catch(error => {
+            console.error('Lỗi:', error);
+            alert('Có lỗi xảy ra');
+        });
+    });
+
+    // Sự kiện khi nhấn nút Xóa
+    $('#reservation-table').on('click', '.btn-delete', function () {
+      const reservationId = $(this).data('id');
+      $('#deleteReservationModal').modal('show');  // Hiển thị modal xác nhận xóa
+
+      // Xử lý khi nhấn nút "Xóa" trong modal xác nhận
+      $('#confirmDeleteButton').off('click').on('click', function () {
+        fetch(`/reservation/${reservationId}`, {
+          method: 'DELETE',
+        })
+        .then(response => {
+          if (!response.ok) throw new Error('Lỗi khi xóa lịch đặt');
+          return response.json();
+        })
+        .then(data => {
+          location.reload();  // Tải lại trang sau khi xóa
+        })
+        .catch(error => {
+          console.error('Lỗi:', error);
+          alert('Có lỗi xảy ra');
+        });
+      });
+    });
+  });
+
+</script>
